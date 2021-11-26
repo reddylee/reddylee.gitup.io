@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Welcome to Reddy's Home
 
 You can use the [editor on GitHub](https://github.com/reddylee/reddylee.github.io/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
 
