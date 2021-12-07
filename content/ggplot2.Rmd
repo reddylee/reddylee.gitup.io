@@ -3,11 +3,14 @@ title: "Data Visualization"
 author: "Reddy"
 date: "28/11/2021"
 output: html_document
+toc_float: true
 ---
+
 ```{r include=FALSE}
 library(tidyverse)
 ```
 
+# BOD
 ```{r}
 head(BOD)
 ggplot(data = BOD,
@@ -33,6 +36,8 @@ CO2 %>% # below use data CO2
   labs(title = "Concentration of CO2", caption = "Concentration")+
   theme_light()
 ```
+
+# CO2
 ```{r}
 CO2 %>% 
   ggplot(aes(Treatment,uptake))+
