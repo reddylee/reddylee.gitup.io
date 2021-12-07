@@ -1,0 +1,141 @@
+---
+title: "Learn Time Series Analysis"
+author: "Reddy"
+date: "29/11/2021"
+output: html_document
+---
+```{r include=FALSE}
+library(tsibble)
+library(tidyverse)
+```
+```{r}
+mydata <- tsibble(
+  year=2000:2021,
+  y=c(rnorm(22,mean=1997,sd=60)),
+  index = year
+)
+mydata %>% 
+  ggplot(aes(y))+
+  geom_histogram(size=3,colour=6)
+```
+```{r}
+mydata1 <- tibble(
+  year=2000:2021,
+  y=c(rnorm(22,mean=1997,sd=60))) %>% 
+  as_tsibble(index = year)
+mydata1 %>% 
+  ggplot(aes(year,y))+
+  geom_point(size=3,colour=6)
+```
+```{r}
+AirPassengers <- as_tsibble(AirPassengers,index = year)
+head(AirPassengers)
+```
+
+
+```{r}
+head(sleep)
+plot(extra~group, data=sleep, main = "Extra Sleep in Gossett Data by Group")
+sleep %>% 
+  ggplot(aes(group,extra))+
+  geom_boxplot(color=6)+
+  labs(title="Extra Sleep in Gossett Data by Group")+
+  theme(plot.title=element_text(hjust = 0.5))
+```
+
+```{r}
+attach(sleep)
+extra.1=extra[group==1] 
+extra.2=extra[group==2] 
+t.test(extra.1, extra.2, paired=TRUE, alternative="two.sided")
+```
+```{r}
+diffs <-  extra.1-extra.2
+qqnorm(diffs, main= "Normal Probability Plot")
+qqline(diffs)
+```
+
+```{r}
+plot(extra.2~extra.1, xlab='extra sleep with drug 1', ylab='extra sleep with drug 2' ,
+  main='Extra Sleep Drug 2 against Extra Sleep Drug 1')
+sleep.linear.model = lm(extra.2 ~ extra.1 )
+abline(sleep.linear.model)
+summary(sleep.linear.model)
+```
+
+```{r}
+pairs(trees, pch = 21, bg = c("red"))
+cor(trees)
+cov(trees)
+```
+
+```{r}
+data <- c(37,86,79,95,61,93,19,98,121,26,39,11,26,75,29,130,42,8)
+summary(data)
+```
+```{r}
+prp <- ts(rnorm(100)) 
+acf(prp,type = 'covariance')
+```
+
+```{r}
+x <- NULL
+x[1] <- 0
+for (i in 2:1000){
+  x[i] <- x[i-1]+rnorm(1)
+}
+x <- ts(x)
+plot(x,main = "A Random Walk",ylab="",xlab="Days",col=6)
+acf(x)
+plot(diff(x))
+acf(diff(x))
+```
+
+```{r}
+noise <- rnorm(10000)
+ma <- 0
+for (i in 3:10000){
+  ma[i] <- noise[i]+0.7*noise[i-1]+0.2*noise[i-2]
+}
+map <- ma[3:10000]
+map <- ts(map)
+par(mfrow=c(2,1))
+plot(map,main="A Moving Average Process of Order 2",ylab=" ",col=4)
+acf(map,main="Corellogram of A Moving Average Process of Order 2",col=4)
+```
+
+```{r}
+set.seed(2016)
+N=1000
+phi = .4
+Z = rnorm(N,0,1)
+X=NULL
+X[1] = Z[1]
+for (t in 2:N) {
+X[t] = Z[t] + phi*X[t-1]
+}
+X.ts = ts(X)
+par(mfrow=c(2,1))
+plot(X.ts,main="AR(1) Time Series on White Noise, phi=.4")
+X.acf = acf(X.ts, main="AR(1) Time Series on White Noise, phi=.4")
+```
+
+```{r}
+set.seed(2017)
+X.ts <- arima.sim(list(ar = c(.7, .2)), n=1000)
+par(mfrow=c(2,1))
+plot(X.ts,main="AR(2) Time Series, phi1=.7, phi2=.2")
+X.acf = acf(X.ts, main="Autocorrelation of AR(2) Time Series")
+```
+```{r}
+phi1 = .5; phi2 = -.4;
+X.ts <- arima.sim(list(ar = c(phi1 , phi2)), n=1000)
+par(mfrow=c(2,1))
+plot(X.ts,main=paste("AR(2) Time Series, phi1=",phi1, "phi2=", phi2))
+X.acf = acf(X.ts, main="Autocorrelation of AR(2) Time Series")
+```
+
+```{r}
+
+```
+
