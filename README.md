@@ -1,2 +1,0 @@
-# Reddy’s Home
-## Welcome!
