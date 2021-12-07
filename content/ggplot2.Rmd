@@ -1,0 +1,74 @@
+---
+title: "Data Visualization"
+author: "Reddy"
+date: "28/11/2021"
+output: html_document
+toc_float: true
+---
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+# BOD
+```{r}
+head(BOD)
+ggplot(data = BOD,
+       mapping = aes(x=Time,
+                     y=demand))+
+  geom_point(size=3)+
+  geom_line(color=6)
+```
+
+```{r}
+ggplot(BOD,aes(Time,demand))+
+  geom_point(size=3)+
+  geom_line(colour=4)
+```
+```{r}
+head(CO2)
+CO2 %>% # below use data CO2
+  ggplot(aes(conc,uptake, 
+             colour=Treatment))+
+  geom_point(size=3,alpha=0.5)+ #plot graph
+  geom_smooth(method = lm,se=FALSE)+ # regression lines with se unknown
+  facet_wrap(~Type)+ #different Type in different graph
+  labs(title = "Concentration of CO2", caption = "Concentration")+
+  theme_light()
+```
+
+# CO2
+```{r}
+CO2 %>% 
+  ggplot(aes(Treatment,uptake))+
+  geom_boxplot()+
+  geom_point(alpha=0.5,
+             aes(size=conc,
+                 colour=Plant))+
+  labs(title = "Concentration")+
+  coord_flip()+ #transpose
+  theme_light()+
+  facet_wrap(~Type)
+```
+```{r}
+head(mpg)
+mpg %>% 
+  filter(cty<27) %>% 
+  ggplot(aes(displ,cty))+
+  geom_point(aes(size=trans,colour=drv),
+             alpha=0.5)+
+  geom_smooth(method = lm)+
+  facet_wrap(~year,nrow = 1)+
+  labs(x="Engine",
+       y="MPG in the city",
+       title = "Fuel efficiency")+
+  theme(plot.title=element_text(hjust = 0.5))
+```
+```{r}
+head(CO2)
+CO2 %>% 
+  ggplot(aes(uptake,
+              conc))+
+  geom_point(aes(size=3,color=Type))
+```
+
