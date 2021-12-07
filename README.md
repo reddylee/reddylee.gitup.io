@@ -1,12 +1,7 @@
-Name: "Reddy’s Home"
-navbar: 
-  title: Home
-  left:
-  - text: R Learning
-    href: content.html
-    
-  - text: 耕读社
-    href: 耕读社.html
-output:
-  html_document:
-    theme: flatly
+---
+title: "耕读社"
+author: "Reddy"
+date: "07/12/2021"
+output: html_document
+---
+欢迎访问耕读社！
