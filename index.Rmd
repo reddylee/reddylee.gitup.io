@@ -1,7 +1,0 @@
----
-title: "Reddy's Home"
-output: html_document
----
-
-Welcome to Reddy's Homepage!
-
